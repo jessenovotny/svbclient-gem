@@ -67,7 +67,7 @@ class SVBClient
     hs = headers('POST', path, '', '')
     hs["Content-Type"] = "multipart/form-data"
 
-    RestClient.post(@BASE_URL + path, { :file => filesrc, :multipart => true, 'Content-Type': mimetype }, headers=hs)
+    RestClient.post(@BASE_URL + path, { :file => filesrc, :multipart => true, 'Content-Type' => mimetype }, headers=hs)
   end
 end
 
