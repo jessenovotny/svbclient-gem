@@ -29,15 +29,13 @@ class SVBClient
 
   def headers(method, path, query, body)
     hs = {
-      "Authorization": "Bearer " + @API_KEY,
+      "Authorization": "Bearer #{@API_KEY}",
       "Content-Type": "application/json"
     }
 
     if @HMAC_SECRET
-      mytimestamp = Time.now.to_i.to_s
-      signature = signature(mytimestamp, method, path, query, body)
-      hs["X-Timestamp"] = mytimestamp
-      hs["X-Signature"] = signature
+      hs["X-Timestamp"] = Time.now.to_i.to_s
+      hs["X-Signature"] = signature(mytimestamp, method, path, query, body)
     end
 
     hs
