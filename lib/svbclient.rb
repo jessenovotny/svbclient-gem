@@ -28,17 +28,14 @@ class SVBClient
   end
 
   def headers(method, path, query, body)
-    hs = {
-      "Authorization": "Bearer #{@API_KEY}",
-      "Content-Type": "application/json"
-    }
-
-    if @HMAC_SECRET
-      hs["X-Timestamp"] = Time.now.to_i.to_s
-      hs["X-Signature"] = signature(mytimestamp, method, path, query, body)
+    Hash.new.tap do |hash|
+      hash["Authorization"] = "Bearer #{@API_KEY}"
+      hash["Content-Type"] = "application/json"
+      if @HMAC_SECRET
+        hash["X-Timestamp"] = Time.now.to_i.to_s
+        hash["X-Signature"] = signature(mytimestamp, method, path, query, body)
+      end
     end
-
-    hs
   end
 
   def delete(path)
